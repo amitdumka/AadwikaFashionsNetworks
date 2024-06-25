@@ -5,6 +5,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/fonts',
+    '@logto/nuxt',
+    '@vueform/nuxt',
     '@vueuse/nuxt'
   ],
   ui: {
@@ -29,6 +31,24 @@ export default defineNuxtConfig({
         commaDangle: 'never',
         braceStyle: '1tbs'
       }
+    }
+  },
+  runtimeConfig: {
+    logto: {
+      endpoint: 'https://fieioi.logto.app/',
+      appId: 'wgoenbdw50jy73qdl5zin',
+      appSecret: 'IPi29V8EzJx1D9fp5ooKoA5Bo6I2d8qE',
+      cookieEncryptionKey: 'n4TmbfenxMgOvWKA3NpO9BjrICSAJrkD' // Random-generated
+    }
+  },
+  logto: {
+    postCallbackRedirectUri: '/',
+    postLogoutRedirectUri: '/',
+    fetchUserInfo: true,
+    pathnames: {
+      signIn: '/login',
+      signOut: '/logout',
+      callback: '/auth/callback'
     }
   }
 })
