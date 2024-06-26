@@ -9,7 +9,7 @@ from django.db import models
  
 from databases.models.base import BaseGroupModel, BaseModel
 from databases.models.clients import Store, StoreGroup, Client
-from core.globalEnums import EmpType, Gender, AttUnit, SalaryComponent, PayMode
+from core.globalEnums import EmpType, Gender, AttUnit, SalaryComponent, PayMode, PaymentMode
  
 import logging
  
@@ -30,6 +30,9 @@ class Person(BaseModel):
     PinCode = models.CharField(max_length=255)
     class Meta:
         abstract = True
+    def FullName(self):
+        return self.FirstName + " " + self.LastName
+        
 
 
 
@@ -37,30 +40,19 @@ class Person(BaseModel):
 class Employee(Person):
     Id = models.CharField(max_length=255, primary_key=True, null=False,editable=False, unique=True, db_index=True,)
     EmpId = models.IntegerField()  # Temp Till full migration is done.
-    JoiningDate = models.DateTimeField()
+    JoiningDate = models.DateTimeField(default= timezone.now)
     Leavingdate = models.DateTimeField(null=True, blank=True)
-    Working = models.BooleanField(default=True)
+    Working = models.BooleanField(default=True)    
     Category =   models.IntegerField(choices=[(tag.value, tag.name) for tag in  EmpType]    )
+    
     def StaffName(self):
         return self.FirstName + " " + self.LastName
     def __str__(self):
-        return self.FirstName + " " + self.LastName
+        return self.Id+" - "+self.StaffName
 
     class Meta:
        verbose_name = "Employee"
        verbose_name_plural = "Employees"
-    # def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
-    #     return super().save(force_insert, force_update, using, update_fields)
-       
-    # def save(self, *args, **kwargs):       
-    #     count=Employee.objects.filter(Category=self.Category).count()
-    #     self.EmployeeId=Auto_Id_Generator(self.__class__.__name__).generate_hrms_id(self.StoreId.pk,"employee",self.Category,self.JoiningDate,count)
-    #    # self.VoucherNumber = Auto_Id_Generator(self.__class__.__name__).generate_id(self.StoreId.pk, "voucher", str(self.VoucherType), self.OnDate, count)
-    #     super(Employee, self).save(*args, **kwargs)
-
-    
-        
-
 
 
 class EmployeeDetails(models.Model):
@@ -81,7 +73,7 @@ class EmployeeDetails(models.Model):
         verbose_name = "EmployeeDetails"
         verbose_name_plural = "EmployeeDetails"
     def __str__(self):
-        return self.DateOfBirth+", "+self.AdharNumber
+        return self.Employee.FirstName + " " + self.Employee.LastName+" - "+ self.DateOfBirth+", "+self.AdharNumber
     
 
 class Attendance(BaseModel):
@@ -107,7 +99,7 @@ class Attendance(BaseModel):
         verbose_name = "Attendance"
         verbose_name_plural = "Attendances"
     def __str__(self):
-        return self.EmployeeId.FirstName + " " + self.EmployeeId.LastName+" "+str(self.Status)
+        return self.Employee.FirstName + " " + self.Employee.LastName+" - "+ str(self.OnDate)+" - "+str(self.Status)
     
 #Monthly Attendance
 class MonthlyAttendance(BaseModel):
@@ -116,16 +108,16 @@ class MonthlyAttendance(BaseModel):
     Employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
    
     OnDate = models.DateTimeField(default= timezone.now)
-    Present = models.IntegerField()
-    HalfDay = models.IntegerField()
-    Sunday = models.IntegerField()
-    PaidLeave = models.IntegerField()
-    Holidays = models.IntegerField()
-    CasualLeave = models.IntegerField()
-    Absent = models.IntegerField()
-    WeeklyLeave = models.IntegerField()
+    Present = models.IntegerField(default=0)
+    HalfDay = models.IntegerField(default=0)
+    Sunday = models.IntegerField(default=0)
+    PaidLeave = models.IntegerField(default=0)
+    Holidays = models.IntegerField(default=0)
+    CasualLeave = models.IntegerField(default=0)
+    Absent = models.IntegerField(default=0)
+    WeeklyLeave = models.IntegerField(default=0)
     Remarks = models.CharField(max_length=255)
-    NoOfWorkingDays = models.IntegerField()
+    NoOfWorkingDays = models.IntegerField(default=0)
     IsReadOnly=models.BooleanField(default=False)
    
     @property
@@ -187,10 +179,12 @@ class TimeSheet(BaseModel):
 class Salary(BaseModel):
     Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True, unique=True)
    
-    Employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
-   
-    BasicSalary = models.DecimalField(max_digits=10, decimal_places=2)
+    Employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)   
     EffectiveDate = models.DateTimeField(default= timezone.now)
+    
+    BasicSalary = models.DecimalField(max_digits=10, decimal_places=2)
+    ExtraSalary= models.DecimalField(max_digits=10, decimal_places=2)
+
     CloseDate = models.DateTimeField(null=True)
     Effective = models.BooleanField(default=True)
     
@@ -216,7 +210,7 @@ class SalaryPayment(BaseModel):
     SalaryComponet =   models.IntegerField(choices=[(tag.value, tag.name) for tag in  SalaryComponent]    )
     OnDate = models.DateTimeField(default= timezone.now)
     Amount = models.DecimalField (max_digits=10, decimal_places=2)
-    PayMode = models.IntegerField(choices=[(tag.value, tag.name) for tag in PayMode]    )
+    PaymentMode = models.IntegerField(choices=[(tag.value, tag.name) for tag in PaymentMode]    )
     Details = models.CharField(max_length=255)
     
     class Meta:

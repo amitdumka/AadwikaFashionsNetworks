@@ -4,6 +4,20 @@
 # Author: Amit Kumar (Aks Labs(India))
 
 from enum import Enum
+
+class StoreCategory(Enum):
+    Cloths=0
+    Garments=1
+    Readymade=2 
+    Furniture =3
+    FuelStation=4
+    General=5
+    Retail = 6
+    Wholesale = 7
+    Distributor = 8
+    Others = 9
+    
+
 class Gender(Enum):
     Male = 0
     Female = 1
@@ -13,7 +27,11 @@ class Unit(Enum):
     Nos = 1
     Pcs = 2
     Packets = 3
-    NoUnit = 4
+    Grams=4
+    Kgs=5
+    Liter=6
+    NoUnit = 8
+    
 
 
 class AttUnit(Enum):
@@ -101,18 +119,14 @@ class LedgerEntryType(Enum):
     ArvindLimited = 6
     Others = 7
 
-
+class NoteType(Enum):
+    DebitNote:0
+    CreditNote:1
+    
 class VoucherType(Enum):
     Payment = 0
-    Receipt = 1
-    Contra = 2
-    DebitNote = 3
-    CreditNote = 4
-    JV = 5
-    Expense = 6
-    CashReceipt = 7
-    CashPayment = 8
-
+    Receipt = 2
+    Expense = 1
 
 class PayMode(Enum):
     Cash = 0
@@ -227,16 +241,36 @@ class CARD(Enum):
     DebitCard = 0
     CreditCard = 1
     AmexCard = 2
+    GiftCard = 3
+    Other=4
 
 
 class CARDType(Enum):
     Visa = 0
     MasterCard = 1
     Maestro = 2
-    Amex = 3
+    AmexCard = 3
     Dinners = 4
     Rupay = 5
-
+    RupayCredit = 6
+    Others = 7
+    
+class  LedgerType(Enum):
+    Assest =0 
+    Cash=1 
+    BankAccount=2
+    Loan=3
+    Expenses=4
+    DirectExpenses=5
+    IndirectExpenses=6
+    Income=7 
+    DirectIncome=8
+    InDirectExpenses=9
+    Purcahase=10
+    Sale=11 
+    StockItem=12
+    Employee=13
+    CaptialAccount=14
 
 class LedgerCategory(Enum):
     Credit = 0

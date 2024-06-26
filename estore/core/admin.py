@@ -10,6 +10,7 @@ from databases.models.core import Customer
 from databases.models.banking import BankAccount, Bank
 
 admin.site.register(Bank)
+admin.site.register(BankAccount)
 admin.site.register(Employee)
 admin.site.register(Customer)
 admin.site.register(Client)

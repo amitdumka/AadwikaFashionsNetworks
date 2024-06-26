@@ -8,7 +8,9 @@
 from django.db import models
 
 from databases.models.clients import Store,StoreGroup, Client
+#TODO: in future make it like as less as possible
 
+#All Linked. 
 class BaseModel(models.Model):
         
     Location=models.ForeignKey(Store, on_delete=models.CASCADE)
@@ -21,6 +23,7 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+#Base
 class BaseGroupModel(models.Model):
         
     #Location=models.ForeignKey(Store, on_delete=models.CASCADE)
@@ -33,7 +36,8 @@ class BaseGroupModel(models.Model):
     class Meta:
         abstract = True
         
-        
+
+# AppBase        
 class BaseGlobalModel(models.Model):
         
     Client=models.ForeignKey(Client, on_delete=models.CASCADE)

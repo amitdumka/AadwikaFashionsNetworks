@@ -5,9 +5,12 @@
 
 import uuid
 from django.db import models 
-from databases.models.clients import StoreGroup
 from core.globalEnums import Gender
 from django.utils import timezone
+
+from databases.models.clients import StoreGroup
+from databases.models.base import BaseModel, BaseGlobalModel, BaseGroupModel
+from databases.models.hrms import Employee
 
 #Customer Model
 class Customer(models.Model):
@@ -40,14 +43,15 @@ class Customer(models.Model):
 
 #Contact model 
 class Contact(models.Model):
-    Id = models.AutoField( primary_key=True, db_index=True, unique=True, null=False, editable=True)
+    Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,  db_index=True, unique=True)
     FirstName = models.CharField(max_length=255)
     LastName = models.CharField(max_length=255)
     EmailId = models.EmailField()
     MobileNo = models.CharField(max_length=14)
     PhoneNo = models.CharField(max_length=14)
     Remarks = models.CharField(max_length=255)
-    StoreGroupId=models.ForeignKey(StoreGroup, on_delete=models.CASCADE)
+    Address= models.CharField(max_length=100, default="Dumka")
+    City=models.CharField(max_length=100, default="Dumka")
 
     class Meta:
         verbose_name = "Contact"
@@ -55,3 +59,16 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.FirstName+" "+self.LastName
+    
+
+class Salesman(BaseModel):
+    Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,  db_index=True, unique=True)
+    Name = models.CharField(max_length=255)
+    Employee =models.ForeignKey(Employee, on_delete=models.CASCADE,null=True, blank=True)  
+    Active = models.BooleanField()
+
+    class Meta:
+        verbose_name = "Salesman"
+        verbose_name_plural = "Salesmen"
+    def __str__(self):
+        return self.Name 
