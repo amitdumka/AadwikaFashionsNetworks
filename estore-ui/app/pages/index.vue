@@ -5,12 +5,16 @@ import type { Period, Range } from '~/types'
 const { isNotificationsSlideoverOpen } = useDashboard()
 
 const items = [[{
-  label: 'New mail',
+  label: 'New Invoice',
   icon: 'i-heroicons-paper-airplane',
   to: '/inbox'
 }, {
-  label: 'New user',
-  icon: 'i-heroicons-user-plus',
+  label: 'New Voucher',
+  icon: 'i-heroicons-plus',
+  to: '/users'
+}, {
+  label: 'New Attendance',
+  icon: 'i-heroicons-users',
   to: '/users'
 }]]
 
@@ -23,34 +27,16 @@ const period = ref<Period>('daily')
     <UDashboardPanel grow>
       <UDashboardNavbar title="Home">
         <template #right>
-          <UTooltip
-            text="Notifications"
-            :shortcuts="['N']"
-          >
-            <UButton
-              color="gray"
-              variant="ghost"
-              square
-              @click="isNotificationsSlideoverOpen = true"
-            >
-              <UChip
-                color="red"
-                inset
-              >
-                <UIcon
-                  name="i-heroicons-bell"
-                  class="w-5 h-5"
-                />
+          <UTooltip text="Notifications" :shortcuts="['N']">
+            <UButton color="gray" variant="ghost" square @click="isNotificationsSlideoverOpen = true">
+              <UChip color="red" inset>
+                <UIcon name="i-heroicons-bell" class="w-5 h-5" />
               </UChip>
             </UButton>
           </UTooltip>
 
           <UDropdown :items="items">
-            <UButton
-              icon="i-heroicons-plus"
-              size="md"
-              class="ml-1.5 rounded-full"
-            />
+            <UButton icon="i-heroicons-plus" size="md" class="ml-1.5 rounded-full" />
           </UDropdown>
         </template>
       </UDashboardNavbar>
@@ -58,32 +44,26 @@ const period = ref<Period>('daily')
       <UDashboardToolbar>
         <template #left>
           <!-- ~/components/home/HomeDateRangePicker.vue -->
-          <HomeDateRangePicker
-            v-model="range"
-            class="-ml-2.5"
-          />
-
+          <!-- <HomeDateRangePicker v-model="range" class="-ml-2.5" /> -->
+          <p>Menu Bar will come here</p>
           <!-- ~/components/home/HomePeriodSelect.vue -->
-          <HomePeriodSelect
-            v-model="period"
-            :range="range"
-          />
+          <!-- <HomePeriodSelect v-model="period" :range="range" /> -->
         </template>
       </UDashboardToolbar>
 
       <UDashboardPanelContent>
         <!-- ~/components/home/HomeChart.vue -->
-        <HomeChart
+        <!-- <HomeChart
           :period="period"
           :range="range"
-        />
-
-        <div class="grid lg:grid-cols-2 lg:items-start gap-8 mt-8">
-          <!-- ~/components/home/HomeSales.vue -->
-          <HomeSales />
-          <!-- ~/components/home/HomeCountries.vue -->
-          <HomeCountries />
-        </div>
+        /> -->
+        <p> Your Content will go here</p>
+        <!-- <div class="grid lg:grid-cols-2 lg:items-start gap-8 mt-8"> -->
+        <!-- ~/components/home/HomeSales.vue -->
+        <!-- <HomeSales /> -->
+        <!-- ~/components/home/HomeCountries.vue -->
+        <!-- <HomeCountries /> -->
+        <!-- </div> -->
       </UDashboardPanelContent>
     </UDashboardPanel>
   </UDashboardPage>

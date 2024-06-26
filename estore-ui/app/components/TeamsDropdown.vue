@@ -18,10 +18,10 @@ const teams = [{
 }]
 
 const actions = [{
-  label: 'Create team',
+  label: 'Create Store',
   icon: 'i-heroicons-plus-circle'
 }, {
-  label: 'Manage teams',
+  label: 'Manage Stores',
   icon: 'i-heroicons-cog-8-tooth'
 }]
 

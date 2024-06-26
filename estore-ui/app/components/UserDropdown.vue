@@ -25,17 +25,17 @@ const items = computed(() => [
     shortcuts: ['?'],
     click: () => isHelpSlideoverOpen.value = true
   }], [{
-    label: 'Documentation',
+    label: 'Change Password',
     icon: 'i-heroicons-book-open',
     to: 'https://ui.nuxt.com/pro/getting-started',
     target: '_blank'
   }, {
-    label: 'GitHub repository',
+    label: 'UserProfile',
     icon: 'i-simple-icons-github',
     to: 'https://github.com/nuxt-ui-pro/dashboard',
     target: '_blank'
   }, {
-    label: 'Buy Nuxt UI Pro',
+    label: 'Change Client',
     icon: 'i-heroicons-credit-card',
     to: 'https://ui.nuxt.com/pro/purchase',
     target: '_blank'
