@@ -156,6 +156,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # add this
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#TODO: Check all tables and API endpoints 
+
 # Remove and create new after testing
 DYNAMIC_API = {
     # pattern: 
@@ -175,9 +177,8 @@ DYNAMIC_API = {
     'bankstatements': "databases.models.banking.BankStatement",
     
     #accounting
-    'party': "databases.models.accounting.Party",
+    'ledgers': "databases.models.accounting.Ledger",
     'ledgergroups': "databases.models.accounting.LedgerGroup",
-    'ledgermaster': "databases.models.accounting.LedgerMaster",
     'cashdetails': "databases.models.accounting.CashDetail",   
     'duerecoveries': "databases.models.accounting.DueRecovery",
     'transactionmodes': "databases.models.accounting.TransactionMode",
@@ -194,6 +195,7 @@ DYNAMIC_API = {
     'salaries': "databases.models.hrms.Salary",
     'salaryPayments': "databases.models.hrms.SalaryPayment",
     'payslips': "databases.models.hrms.PaySlip",
+    'salesmen': "databases.models.core.Salesman",
     
     
 }
@@ -215,7 +217,7 @@ API_GENERATOR = {
     'dailysales': "databases.models.accounting.DailySale",
     
     'customerdues': "databases.models.accounting.CustomerDue",
-    'salesmen': "databases.models.accounting.Salesman",
+    
     
     #HRMS
     'employees': "databases.models.hrms.Employee",
