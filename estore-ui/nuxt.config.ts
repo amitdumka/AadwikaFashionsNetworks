@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@logto/nuxt',
     '@vueform/nuxt',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
+    'nuxt-pdfeasy'
   ],
   ui: {
     icons: ['heroicons', 'simple-icons'],

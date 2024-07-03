@@ -23,6 +23,7 @@
     "@vueuse/nuxt": "^10.11.0",
     "date-fns": "^3.6.0",
     "nuxt": "^3.12.2",
+    "nuxt-pdfeasy": "^1.4.0",
     "nuxt-security": "^2.0.0-rc.6",
     "v-calendar": "^3.1.2"
   },
